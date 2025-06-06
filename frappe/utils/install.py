@@ -296,9 +296,9 @@ def add_standard_navbar_items():
 			"is_standard": 1,
 		},
 		{
-			"item_label": "Frappe Support",
+			"item_label": "Soporte Grintsys",
 			"item_type": "Route",
-			"route": "https://frappe.io/support",
+			"route": "https://grintsys.freshdesk.com/support/home",
 			"is_standard": 1,
 		},
 	]
