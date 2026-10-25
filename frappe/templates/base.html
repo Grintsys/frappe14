@@ -15,8 +15,14 @@
 	{% block favicon %}
 	<link
 		rel="shortcut icon"
-		href="{{ (favicon or "/assets/frappe/images/frappe-favicon.svg") | abs_url }}"
+		href="{{ (favicon or "/assets/erpnext/images/erpnext-favicon.svg") | abs_url }}"
 		type="image/x-icon"
+	>
+	<link
+		rel="icon"
+		type="image/png"
+		sizes="32x32"
+		href="/assets/erpnext/images/erpnext-favicon.png"
 	>
 	{% endblock %}
 
