@@ -1200,8 +1200,8 @@ Object.assign(frappe.utils, {
 	},
 
 	map_defaults: {
-		center: [19.08, 72.8961],
-		zoom: 13,
+		center: [15.505443, -88.025100],
+		zoom: 15,
 		tiles: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
 		options: {
 			attribution:

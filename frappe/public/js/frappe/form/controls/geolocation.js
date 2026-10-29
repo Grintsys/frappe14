@@ -216,8 +216,14 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 		});
 
 		this.map.on("draw:deleted draw:edited", (e) => {
-			const { layer } = e;
-			this.editableLayers.removeLayer(layer);
+			const { layer, layers } = e;
+			if (e.type === "draw:deleted") {
+				if (layers && layers.eachLayer) {
+					layers.eachLayer((l) => this.editableLayers.removeLayer(l));
+				} else if (layer) {
+					this.editableLayers.removeLayer(layer);
+				}
+			}
 			this.set_value(JSON.stringify(this.editableLayers.toGeoJSON()));
 		});
 	}
@@ -244,9 +250,21 @@ frappe.ui.form.ControlGeolocation = class ControlGeolocation extends frappe.ui.f
 		// Spread map across the wrapper, recenter and zoom w.r.t bounds
 		try {
 			this.map.invalidateSize();
-			this.map.fitBounds(this.editableLayers.getBounds(), {
-				padding: [50, 50],
-			});
+			const bounds = this.editableLayers.getBounds();
+			if (bounds && bounds.isValid()) {
+				if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+					this.map.setView(bounds.getCenter(), frappe.utils.map_defaults.zoom);
+				} else {
+					this.map.fitBounds(bounds, {
+						padding: [50, 50],
+					});
+				}
+			} else {
+				this.map.setView(
+					frappe.utils.map_defaults.center,
+					frappe.utils.map_defaults.zoom
+				);
+			}
 		} catch (err) {
 			// suppress error if layer has a point.
 		}
